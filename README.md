@@ -30,7 +30,7 @@ npm test
 npm run build
 ```
 
-The default `npm run build` builds the frontend only and does not require a database or environment variables, which is suitable for a static Vercel deployment. Use `npm run build:full` when you also want to compile the Express and Prisma server locally. The API-backed role data and skill-gap actions require the server and database to be deployed separately; a frontend-only deployment can still render the client shell, but those API requests will not have a backend until that service is hosted.
+The Vercel deployment includes both the React frontend and the Express API as a serverless function. The seeded SQLite database is bundled at `server/prisma/dev.db`, so no external database or environment variable is required for this read-only demo dataset. Use `npm run build` to build the complete deployment. For local development, use `npm run dev`.
 
 The SQLite database is created at `server/prisma/dev.db`. The dataset contains exactly 50 role records. Sources are reference points and should be rechecked against current job postings before being treated as current market requirements.
 
