@@ -14,6 +14,8 @@ describe('course sessions', () => {
     expect(sessions[7].kind).toBe('Practical');
     expect(sessions[11].kind).toBe('Practical');
     expect(sessions.filter((session) => session.kind === 'Lecture').every((session) => session.questions.length === 5)).toBe(true);
+    expect(sessions.filter((session) => session.kind === 'Lecture').every((session) => session.questions.every((question) => question.choices.length === 4))).toBe(true);
+    expect(sessions.filter((session) => session.kind === 'Lecture').every((session) => session.content.split('\n\n').length >= 4)).toBe(true);
     expect(new Set(sessions.filter((session) => session.kind === 'Lecture').map((session) => session.content)).size).toBe(10);
   });
 
