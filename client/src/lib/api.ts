@@ -1,6 +1,7 @@
 import type { Role, RoleSummary, SkillGapResponse } from '../../../shared/types';
+import { excelCompanyNames } from '../data/companies';
 
-export const companyNames = ['Accenture', 'TCS', 'Microsoft', 'IBM', 'Deloitte'];
+export const companyNames = [...excelCompanyNames];
 
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...options });

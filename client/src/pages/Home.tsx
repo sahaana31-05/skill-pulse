@@ -2,11 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { ArrowRight, BarChart3, Building2, CheckCircle2, Search } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { api, companyNames } from '../lib/api';
+import { api } from '../lib/api';
+import { excelCompanyNames } from '../data/companies';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { data: companies = companyNames } = useQuery({ queryKey: ['companies'], queryFn: api.companies });
+  const companies = [...excelCompanyNames];
   const [company, setCompany] = useState('');
   const [field, setField] = useState('IT');
   const { data: roles = [] } = useQuery({ queryKey: ['company-roles', company, field], queryFn: () => api.companyRoles(company, field), enabled: Boolean(company) });
