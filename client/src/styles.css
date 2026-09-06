@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color: #1a1a1a; background: #fff; font-family: 'Manrope', sans-serif; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, select { font: inherit; }
+::selection { background: #b9f0d1; }
+
+@layer components {
+  .container-shell { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .eyebrow { @apply text-xs font-bold uppercase tracking-[0.18em] text-pulse; }
+  .card { @apply rounded-xl border border-slate-200 bg-white; }
+  .pill { @apply inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-sm text-slate-700; }
+}

@@ -1,0 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
+import { ArrowRight, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { api } from '../lib/api';
+
+export default function Browse() {
+  const [company, setCompany] = useState('');
+  const [field, setField] = useState('');
+  const [search, setSearch] = useState('');
+  const { data: companies = [] } = useQuery({ queryKey: ['companies'], queryFn: api.companies });
+  const { data: roles = [], isLoading } = useQuery({ queryKey: ['roles', company, field, search], queryFn: () => api.roles(new URLSearchParams({ ...(company && { company }), ...(field && { field }), ...(search && { search }) }).toString()) });
+  return <main className="container-shell py-16"><div className="max-w-2xl"><p className="eyebrow">Role directory</p><h1 className="mt-3 text-4xl font-extrabold tracking-tight">Find your next role to study.</h1><p className="mt-4 text-lg leading-8 text-slate-500">Filter the full dataset by employer, field, or role name.</p></div><div className="mt-10 grid gap-3 rounded-xl border border-slate-200 bg-mist p-4 md:grid-cols-[1fr_1fr_1.4fr]"><select aria-label="Filter by company" value={company} onChange={(event) => setCompany(event.target.value)} className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm"><option value="">All companies</option>{companies.map((item) => <option key={item}>{item}</option>)}</select><select aria-label="Filter by field" value={field} onChange={(event) => setField(event.target.value)} className="rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm"><option value="">All fields</option><option>IT</option><option>Non-IT</option></select><label className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4"><Search size={17} className="text-slate-400" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search role name" className="w-full bg-transparent py-3 text-sm outline-none" /></label></div><div className="mt-8 overflow-hidden rounded-xl border border-slate-200"><div className="hidden grid-cols-[1.2fr_1fr_1fr_auto] gap-4 bg-mist px-5 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 sm:grid"><span>Role</span><span>Company</span><span>Field</span><span></span></div>{isLoading ? <p className="p-6 text-slate-500">Loading roles...</p> : roles.map((item) => <Link to={`/roles/${item.id}`} key={item.id} className="grid gap-2 border-t border-slate-100 px-5 py-5 transition hover:bg-emerald-50 sm:grid-cols-[1.2fr_1fr_1fr_auto] sm:items-center sm:gap-4"><span className="font-bold">{item.role}</span><span className="text-sm text-slate-600">{item.company}</span><span className="text-sm text-slate-600">{item.field}</span><ArrowRight className="hidden text-pulse sm:block" size={18} /></Link>)}</div></main>;
+}
