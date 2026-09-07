@@ -32,7 +32,7 @@ npm run build
 
 The Vercel deployment includes both the React frontend and the Express API as a serverless function. The seeded SQLite database is bundled at `server/prisma/dev.db`, so no external database or environment variable is required for this read-only demo dataset. Use `npm run build` to build the complete deployment. For local development, use `npm run dev`.
 
-The SQLite database is created at `server/prisma/dev.db`. The dataset contains exactly 50 role records. Sources are reference points and should be rechecked against current job postings before being treated as current market requirements.
+The SQLite database is created at `server/prisma/dev.db`. The role dataset is imported from `mnc_job_skills_dataset_50_rows.xlsx`: 50 records total, with 5 IT roles and 5 Non-IT roles for each of Accenture, TCS, Microsoft, IBM, and Deloitte. Each record exposes the five skills from the workbook on its role card and role detail page. Sources are reference points and should be rechecked against current job postings before being treated as current market requirements.
 
 ## Learning course
 
